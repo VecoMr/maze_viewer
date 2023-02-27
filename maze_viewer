@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+import sys
+import random
+import getopt
+
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+
+from src.maze import Maze
+
+def print_help():
+    with open("src/help.txt") as f:
+        print(f.read())
+
+def main():
+    argv = sys.argv[1:]
+    opt, argv = getopt.getopt(argv, 'H', ["help", "color="])
+    ac = len(argv)
+    optc = len(opt)
+
+    all_colors = plt.colormaps()
+    plt_color = 'gray'
+    for a,b in opt:
+        if a == '-H' or a == "--help":
+            print_help()
+            return 0
+        if a == "--color":
+            if b in all_colors:
+                plt_color = b
+            else:
+                print("Color not are in the color map of matplotlib check this in :\nhttps://matplotlib.org/stable/tutorials/colors/colormaps.html#grayscale-conversion")
+                return 1
+
+    try:
+        filepath = argv[0]
+        with open(filepath) as f:
+            maze = f.read()
+    except:
+        print("Bad Filepath")
+        return 1
+    maze = [[_ for _ in i] for i in maze.split("\n")]
+    print(plt_color)
+    maze = Maze(maze, plt_color)
+    maze.show()
+
+if __name__ == "__main__":
+    main()

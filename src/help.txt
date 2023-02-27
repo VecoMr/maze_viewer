@@ -1,0 +1,9 @@
+USAGE
+    ./maze_viewer [OPTIONS] filepath
+
+DESCRIPTION
+    [OPTIONS]:
+        -H  --help      print this message
+        -C  --color=    check https://matplotlib.org/stable/tutorials/colors/colormaps.html#grayscale-conversion
+
+    filepath    The path to the file with the maze map
