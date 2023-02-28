@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import sys
-import random
 import getopt
 
 import matplotlib.pyplot as plt
@@ -14,12 +13,15 @@ def print_help():
 
 def main():
     argv = sys.argv[1:]
-    opt, argv = getopt.getopt(argv, 'H', ["help", "color="])
+    opt, argv = getopt.getopt(argv, 'H', ["help", "color=", "animate", "cli"])
     ac = len(argv)
     optc = len(opt)
 
     all_colors = plt.colormaps()
     plt_color = 'gray'
+    is_show = True
+    is_animate = False
+
     for a,b in opt:
         if a == '-H' or a == "--help":
             print_help()
@@ -30,6 +32,10 @@ def main():
             else:
                 print("Color not are in the color map of matplotlib check this in :\nhttps://matplotlib.org/stable/tutorials/colors/colormaps.html#grayscale-conversion")
                 return 1
+        if a == 'animate':
+            is_animate = True
+        if a == 'cli':
+            is_show = False
 
     try:
         filepath = argv[0]
@@ -39,7 +45,6 @@ def main():
         print("Bad Filepath")
         return 1
     maze = [[_ for _ in i] for i in maze.split("\n")]
-    print(plt_color)
     maze = Maze(maze, plt_color)
     maze.show()
 
