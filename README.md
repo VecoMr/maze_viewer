@@ -7,9 +7,11 @@ To use the Maze Viewer, run the following command:
 
 `./maze_viewer [OPTIONS] filepath`
 
+
 ## Arguments
 
     filepath - The path to the file with the maze map.
+
 
 ## Options
 
@@ -19,6 +21,7 @@ The Maze Viewer accepts the following options:
     --animate: Animate the process of finding the solution to the maze.
     --color=COLOR: Set the color map for the maze. The color map should be a valid matplotlib color map. The default color map is 'gray'.
     --cli: Run the script in CLI mode. The script will return the number of nodes to solve the maze and 0 if it is unsolvable.
+
 
 ## Maze File Format
 
@@ -49,6 +52,7 @@ This maze can be visualized with the following command:
 
 In this example, the script will use the default color map ('gray') to display the maze.
 
+
 ## CLI Mode
 
 In CLI mode, the Maze Viewer will return the number of nodes to solve the maze and 0 if it is unsolvable. To run the script in CLI mode, use the --cli option:
@@ -60,6 +64,7 @@ If the maze is unsolvable, the script will return 0. If the maze is solvable, th
 Color Maps
 
 The Maze Viewer supports different color maps for displaying the maze. The default color map is 'gray'. To set a different color map, use the --color=COLOR option, where COLOR is a valid matplotlib color map. You can find a list of valid color maps here: https://matplotlib.org/stable/tutorials/colors/colormaps.html#grayscale-conversion
+
 
 ## Animation
 
