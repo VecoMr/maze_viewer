@@ -1,15 +1,22 @@
+import sys
+
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
+from matplotlib import animation
 
 class Maze:
     def __init__(self, maze, color):
-        d = {"*":0, "o":1, "X":2}
+        self.transform =  {"*":2, "o":1, "X":0}
         self.maze = maze
         self.width = len(maze[0])
         self.height = len(maze)
-        self.maze_mat = [[d[_] for _ in i] for i in maze]
+        self.maze_mat = [[self.transform[_] for _ in i] for i in maze]
         self.maze_res = [['*' if _ == 'o' else _ for _ in i] for i in maze]
+        self.maze_res_mat = [[self.transform[_] for _ in i] for i in self.maze_res]
         self.color = color
+        self.solve = self.__to_solve()
+        self.im = None
+        self.ax = None
+        self.speed = 100
 
     def show(self):
         plt.imshow(self.maze_mat, cmap=self.color)
@@ -37,20 +44,45 @@ class Maze:
                 pos.append((x, y + 1))
         if len(pos) != 1:
             return []
-        return pos
+        return pos[0]
 
     def __to_solve(self, x_start=0, y_start=0):
-        d = {"*":0, "o":1, "X":2}
         pos = [(x_start, y_start)]
-
-        if sum(1 for i in [_ for _ in self.maze] if i == 'o') == 0:
-            return "Not path finding"
+        if sum(1 for i in "".join("".join(i) for i in self.maze) if i == 'o') == 0:
+            return False
         if self.maze[0][0] != 'o':
-            return "Don't start in 0 0"
+            return False
         if self.maze[self.height - 1][self.width - 1] != 'o':
-            return "Don't end in the right bottom corner"
+            return False
         is_available = True
         while is_available:
-            is_available = False
+            tmp_pos = self.__next_posibility(pos[-1][0], pos[-1][1], pos)
+            if not tmp_pos:
+                is_available = False
+            else:
+                pos.append(tmp_pos)
+        return pos
+
+
+    def __animate_step(self, framenum):
+        if self.solve:
+            x, y = self.solve.pop(0)
+            self.maze_res_mat[y][x] = 1
+            im = self.ax.imshow(self.maze_res_mat, cmap=self.color)
+            return im,
+        else:
+            im = self.ax.imshow(self.maze_res_mat, cmap=self.color)
+            return im,
+
+    def animate(self):
+        fig, self.ax = plt.subplots()
+        self.im = self.ax.imshow(self.maze_res_mat, cmap=self.color)
+
+        if not self.solve:
+            print("Map is not resolved", file=sys.stderr)
+            return 1
+        ani = animation.FuncAnimation(fig, self.__animate_step, frames=range(5), interval=100, blit=True)
+        plt.show()
+
 
 

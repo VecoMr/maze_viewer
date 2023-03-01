@@ -21,8 +21,9 @@ def main():
     plt_color = 'gray'
     is_show = True
     is_animate = False
+    is_cli = False
 
-    for a,b in opt:
+    for a, b in opt:
         if a == '-H' or a == "--help":
             print_help()
             return 0
@@ -32,10 +33,14 @@ def main():
             else:
                 print("Color not are in the color map of matplotlib check this in :\nhttps://matplotlib.org/stable/tutorials/colors/colormaps.html#grayscale-conversion")
                 return 1
-        if a == 'animate':
+        if a == '--animate':
             is_animate = True
-        if a == 'cli':
             is_show = False
+            is_cli = False
+        if a == '--cli':
+            is_show = False
+            is_animate = False
+            is_cli = True
 
     try:
         filepath = argv[0]
@@ -46,7 +51,16 @@ def main():
         return 1
     maze = [[_ for _ in i] for i in maze.split("\n")]
     maze = Maze(maze, plt_color)
-    maze.show()
+
+    if is_show:
+        maze.show()
+    if is_animate:
+        maze.animate()
+    if is_cli:
+        if maze.solve != False:
+            exit(len(maze.solve))
+        else:
+            exit(0)
 
 if __name__ == "__main__":
     main()
