@@ -5,7 +5,7 @@ DESCRIPTION
     [OPTIONS]:
         -H  --help      print this message
             --animate   to animate the resolution of the maze
-                --color=    check https://matplotlib.org/stable/tutorials/colors/colormaps.html#grayscale-conversion
+            --color=    check https://matplotlib.org/stable/tutorials/colors/colormaps.html#grayscale-conversion
             --cli       CLI mode the return value is the number of node to solve the maze and 0 if is unsolve
 
     filepath    The path to the file with the maze map
