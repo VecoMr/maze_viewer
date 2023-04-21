@@ -13,7 +13,7 @@ def print_help():
 
 def main():
     argv = sys.argv[1:]
-    opt, argv = getopt.getopt(argv, 'H', ["help", "color=", "animate", "cli"])
+    opt, argv = getopt.getopt(argv, 'H', ["help", "color=", "animate", "cli", "speed="])
     ac = len(argv)
     optc = len(opt)
 
@@ -22,6 +22,7 @@ def main():
     is_show = True
     is_animate = False
     is_cli = False
+    speed = 100
 
     for a, b in opt:
         if a == '-H' or a == "--help":
@@ -41,6 +42,11 @@ def main():
             is_show = False
             is_animate = False
             is_cli = True
+        if a[0:9] == '--speed':
+            is_animate = True
+            is_show = False
+            is_cli = False
+            speed = 100/float(b)
 
     try:
         filepath = argv[0]
@@ -55,7 +61,7 @@ def main():
     if is_show:
         maze.show()
     if is_animate:
-        maze.animate()
+        maze.animate(speed)
     if is_cli:
         if maze.solve != False:
             exit(len(maze.solve))

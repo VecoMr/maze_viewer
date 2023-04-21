@@ -74,14 +74,14 @@ class Maze:
             im = self.ax.imshow(self.maze_res_mat, cmap=self.color)
             return im,
 
-    def animate(self):
+    def animate(self, speed : float):
         fig, self.ax = plt.subplots()
         self.im = self.ax.imshow(self.maze_res_mat, cmap=self.color)
 
         if not self.solve:
             print("Map is not resolved", file=sys.stderr)
             return 1
-        ani = animation.FuncAnimation(fig, self.__animate_step, frames=range(5), interval=100, blit=True)
+        ani = animation.FuncAnimation(fig, self.__animate_step, frames=range(5), interval=speed, blit=True)
         plt.show()
 
 
