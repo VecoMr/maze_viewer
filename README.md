@@ -7,6 +7,8 @@ To use the Maze Viewer, run the following command:
 
 `./maze_viewer [OPTIONS] filepath`
 
+The Maze Viewer supports different color maps for displaying the maze. The default color map is 'gray'. To set a different color map, use the --color=COLOR option, where COLOR is a valid matplotlib color map. You can find a list of valid color maps here: https://matplotlib.org/stable/tutorials/colors/colormaps.html#grayscale-conversion
+
 
 ## Arguments
 
@@ -63,15 +65,25 @@ In CLI mode, the Maze Viewer will return the number of nodes to solve the maze a
 If the maze is unsolvable, the script will return 0. If the maze is solvable, the script will return the number of nodes required to solve the maze.
 Color Maps
 
-The Maze Viewer supports different color maps for displaying the maze. The default color map is 'gray'. To set a different color map, use the --color=COLOR option, where COLOR is a valid matplotlib color map. You can find a list of valid color maps here: https://matplotlib.org/stable/tutorials/colors/colormaps.html#grayscale-conversion
-
-
 ## Animation
 
 The Maze Viewer can animate the process of finding the solution to the maze. To animate the process, use the --animate option:
 
 `./maze_viewer --animate path/to/maze.txt`
 
+Exemple:
+`./maze_viewer --animate --color=Pastel1 map/solved.txt`
+
 The animation will show each step of the process of finding the solution to the maze. Once the solution is found, the final solution will be displayed.
 
 Note: Animating the process of finding the solution can take some time, depending on the complexity of the maze.
+
+## Customizing Animation Speed
+
+You can customize the speed of the animation by using the --speed option followed by a numeric value. Higher values will result in faster animations, while lower values will slow down the animation.
+
+Example:
+./maze_viewer --animate --speed=5 path/to/maze.txt
+
+In this example, the animation speed is set to 5, which will make the animation progress faster compared to the default speed.
+
